@@ -11,21 +11,33 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [9,8,7, 6,5,4, 2,1,3]]
 
 board_b  = board_a
-cell_size = 50
 
 def setup():
     global cell_size
     size(600,600)
+    textAlign(CENTER, CENTER)
+    textSize(24)
+
 
 def draw():
     draw_board(width/9)
+    draw_numbers()
     
 def draw_board(c):
-    fill(0)
-    for i in range(9):
+    for i in range(10):
         if i % 3 == 0:
             strokeWeight(5)
         else :
             strokeWeight(1)
         line(i*c,0,i*c,height)
         line(0,i*c,width,i*c)
+
+def draw_numbers():
+    fill (0)
+    for rols in range(9):
+        for cols in range(9):
+            num = board_b[rols][cols]
+            if num != 0:
+                x = cols * (width/9) + (width/9) / 2
+                y = rols * (height/9) + (height/9) / 2
+                text(str(num), x, y)
