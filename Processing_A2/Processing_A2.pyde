@@ -11,14 +11,15 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [9,8,7, 6,5,4, 2,1,3]]
 
 board_b  = board_a
+blank = []
 
 def setup():
     global cell_size
     size(600,600)
     textAlign(CENTER, CENTER)
     textSize(24)
-
-
+    random_blank()
+    
 def draw():
     draw_board(width/9)
     draw_numbers()
@@ -34,10 +35,20 @@ def draw_board(c):
 
 def draw_numbers():
     fill (0)
-    for rols in range(9):
-        for cols in range(9):
-            num = board_b[rols][cols]
+    for rol in range(9):
+        for col in range(9):
+            num = board_b[rol][col]
             if num != 0:
-                x = cols * (width/9) + (width/9) / 2
-                y = rols * (height/9) + (height/9) / 2
-                text(str(num), x, y)
+                x = col * (width/9) + (width/9) / 2
+                y = rol * (height/9) + (height/9) / 2
+                text(str(num), x, y)    
+            
+def random_blank():
+    blank = [0]*7
+    for rol in range(9):
+        for i  in range(7):
+            blank[i] = int(random(1,9))
+            for col in range(9):
+                if board_b[rol][col] in blank:
+                    board_b[rol][col] = 0
+            
