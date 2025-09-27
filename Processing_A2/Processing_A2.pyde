@@ -11,7 +11,7 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [9,8,7, 6,5,4, 2,1,3]]
 
 board_b  = board_a
-blank = []
+selected_cell = (-1, -1)
 
 def setup():
     global cell_size
@@ -41,9 +41,10 @@ def draw_numbers():
             if num != 0:
                 x = col * (width/9) + (width/9) / 2
                 y = rol * (height/9) + (height/9) / 2
-                text(str(num), x, y)    
+                text(str(num), x, y)
 
 def random_number_forbank():
+    blank = []
     blank = [0]*7
     for i  in range(7):
         blank[i] = int(random(1,10))
@@ -55,3 +56,11 @@ def random_blank():
         for col in range(9):
             if board_b[rol][col] in random_number_forbank():
                 board_b[rol][col] = 0
+                
+def mousePressed():
+    global selected_cell
+    col = mouseX // (width/9)
+    row = mouseY // (width/9)
+    if 0 <= row < 9 and 0 <= col < 9:
+        selected_cell = (row, col)
+    print (col,row) ##testing
