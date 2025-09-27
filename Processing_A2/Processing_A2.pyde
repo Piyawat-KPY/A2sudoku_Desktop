@@ -42,13 +42,16 @@ def draw_numbers():
                 x = col * (width/9) + (width/9) / 2
                 y = rol * (height/9) + (height/9) / 2
                 text(str(num), x, y)    
-            
-def random_blank():
+
+def random_number_forbank():
     blank = [0]*7
+    for i  in range(7):
+        blank[i] = int(random(1,10))
+    return  blank
+    
+def random_blank():
     for rol in range(9):
-        for i  in range(7):
-            blank[i] = int(random(1,9))
-            for col in range(9):
-                if board_b[rol][col] in blank:
-                    board_b[rol][col] = 0
-            
+        random_number_forbank()
+        for col in range(9):
+            if board_b[rol][col] in random_number_forbank():
+                board_b[rol][col] = 0
