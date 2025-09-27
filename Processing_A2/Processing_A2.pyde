@@ -61,8 +61,8 @@ def random_blank():
                 
 def mousePressed():
     global selected_cell
-    col = mouseX // (width/9)
-    row = mouseY // (width/9)
+    col = mouseX / (width/9)
+    row = mouseY / (height/9)
     if 0 <= row < 9 and 0 <= col < 9:
         selected_cell = (row, col)
         
@@ -70,4 +70,9 @@ def highlight_selected_cell():
     if selected_cell != (-1, -1):
         row, col = selected_cell
         fill(300,300,0,100)
-        rect(col * (width/9), row * (width/9), (width/9), (width/9))
+        rect(col * (height/9), row * (width/9), (height/9), (width/9))
+        for i in range (9):
+            for  j in range (9):
+                if board_b[i][j] == board_b[row][col]:
+                    fill(300,300,0,20)
+                    rect(j * (height/9), i * (width/9), (height/9), (width/9))
