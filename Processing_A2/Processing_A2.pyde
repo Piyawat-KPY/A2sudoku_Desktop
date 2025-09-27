@@ -73,6 +73,7 @@ def highlight_selected_cell():
         rect(col * (height/9), row * (width/9), (height/9), (width/9))
         for i in range (9):
             for  j in range (9):
-                if board_b[i][j] == board_b[row][col]:
+                if board_b[i][j] == board_b[row][col] and board_b[row][col] !=  0:
                     fill(300,300,0,20)
                     rect(j * (height/9), i * (width/9), (height/9), (width/9))
+                    
