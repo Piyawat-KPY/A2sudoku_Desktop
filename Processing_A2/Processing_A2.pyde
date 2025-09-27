@@ -76,4 +76,10 @@ def highlight_selected_cell():
                 if board_b[i][j] == board_b[row][col] and board_b[row][col] !=  0:
                     fill(300,300,0,20)
                     rect(j * (height/9), i * (width/9), (height/9), (width/9))
-                    
+
+def keyPressed():
+    row, col = selected_cell
+    if key in '123456789':
+        board_b[row][col] = int(key)
+
+    
