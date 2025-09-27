@@ -21,8 +21,10 @@ def setup():
     random_blank()
     
 def draw():
+    background(250)
     draw_board(width/9)
     draw_numbers()
+    highlight_selected_cell()
     
 def draw_board(c):
     for i in range(10):
@@ -63,4 +65,9 @@ def mousePressed():
     row = mouseY // (width/9)
     if 0 <= row < 9 and 0 <= col < 9:
         selected_cell = (row, col)
-    print (col,row) ##testing
+        
+def highlight_selected_cell():
+    if selected_cell != (-1, -1):
+        row, col = selected_cell
+        fill(300,300,0,100)
+        rect(col * (width/9), row * (width/9), (width/9), (width/9))
