@@ -57,14 +57,19 @@ def draw_add_number_cell():
         text(str(i+1), x, y)
 
 def draw_numbers():
-    fill (0)
     for rol in range(9):
         for col in range(9):
             num = board_b[rol][col]
             if num != 0:
+                fill (0)
                 x = col * (canvas_width/9) + (canvas_width/9) / 2
                 y = rol * ((canvas_height - (cell_size*2)) /9) + ((canvas_height - (cell_size*2)) /9) / 2
+                if num != board_a[rol][col]:
+                    num = board_a[rol][col]
+                    fill (300,0,0)
                 text(str(num), x, y)
+              
+               
 
 def random_number_forbank():
     blank = []
@@ -89,8 +94,7 @@ def mousePressed():
     if row  == 10:
         selected_number = (col+1)
         dragging = True
-        drag_x = mouseX
-        drag_y = mouseY
+        drag_x,drag_y = mouseX,mouseY
 
 def highlight_selected_cell():
     if selected_cell != (-1, -1):
