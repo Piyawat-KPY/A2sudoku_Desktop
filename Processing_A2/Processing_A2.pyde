@@ -32,12 +32,17 @@ def draw():
     draw_numbers()
     highlight_selected_cell()
     draw_add_number_cell()
+    text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
     if dragging and selected_number is not None:
         fill(0,0,0,0)
         square(drag_x - cell_size/2 , drag_y - cell_size/2 , cell_size)
         fill(0)
         text(str(selected_number) , drag_x , drag_y )
-    text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
+    if  chance <= 0  :
+        fill(300,0,0)
+        rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
+        fill(0)
+        text("You  lose!",canvas_width/2 , cell_size*9/2 )
 
 def draw_board():
     for i in range(10):
@@ -71,8 +76,6 @@ def draw_numbers():
                     fill (300,0,0)
                 text(str(num), x, y)
               
-               
-
 def random_number_forbank():
     blank = []
     blank = [0]*6
