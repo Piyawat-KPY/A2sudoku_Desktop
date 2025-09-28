@@ -27,7 +27,6 @@ def setup():
     random_blank()
     
 def draw():
-    global dragging
     background(250)
     draw_board()
     draw_numbers()
@@ -39,12 +38,7 @@ def draw():
         square(drag_x - cell_size/2 , drag_y - cell_size/2 , cell_size)
         fill(0)
         text(str(selected_number) , drag_x , drag_y )
-    if  chance <= 0  :
-        fill(300,0,0)
-        rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
-        fill(0)
-        text("You  lose!",canvas_width/2 , cell_size*9/2 )
-        dragging = False
+    lose_win()
 
 def draw_board():
     for i in range(10):
@@ -80,8 +74,8 @@ def draw_numbers():
               
 def random_number_forbank():
     blank = []
-    blank = [0]*6
-    for i  in range(6):
+    blank = [0]*1
+    for i  in range(1):
         blank[i] = int(random(1,10))
     return  blank
     
@@ -132,3 +126,18 @@ def mouseReleased():
             
     dragging = False
     selected_number = None
+    
+def lose_win():
+    global dragging
+    if  chance <= 0  :
+        fill(300,0,0)
+        rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
+        fill(0)
+        text("You  lose!",canvas_width/2 , cell_size*9/2 )
+        dragging = False
+    if  board_b == board_a:
+        fill(0,300,0)
+        rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
+        fill(0)
+        text("You  win!",canvas_width/2 , cell_size*9/2 )
+        dragging = False
