@@ -24,7 +24,7 @@ def setup():
     size(canvas_width,canvas_height)
     textAlign(CENTER, CENTER)
     textSize(24)
-    random_blank()
+    reset_game()
     
 def draw():
     background(250)
@@ -32,7 +32,6 @@ def draw():
     draw_numbers()
     highlight_selected_cell()
     draw_add_number_cell()
-    text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
     if dragging and selected_number is not None:
         fill(0,0,0,0)
         square(drag_x - cell_size/2 , drag_y - cell_size/2 , cell_size)
@@ -85,7 +84,7 @@ def random_blank():
             if board_b[rol][col] in random_number_forbank():
                 board_b[rol][col] = 0
                 
-def mousePressed():
+def mousePressed(): 
     global selected_cell,selected_number,drag_x,drag_y,dragging
     col = mouseX // (cell_size)
     row = mouseY // (cell_size)
@@ -95,6 +94,8 @@ def mousePressed():
         selected_number = (col+1)
         dragging = True
         drag_x,drag_y = mouseX,mouseY
+    if row == 9  and col >= 7:
+        reset_game()
 
 def highlight_selected_cell():
     if selected_cell != (-1, -1):
@@ -127,15 +128,28 @@ def mouseReleased():
     
 def lose_win():
     global dragging
+    global chance
+    text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
+    fill(255)
+    rect(canvas_width - cell_size*2 , cell_size*9  , cell_size*2 ,cell_size)
+    fill(300,0,0)
+    text("reset" ,canvas_width - cell_size, canvas_height  - (cell_size  + cell_size/2) )
     if  chance <= 0  :
         fill(300,0,0)
         rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
         fill(0)
         text("You  lose!",canvas_width/2 , cell_size*9/2 )
         dragging = False
+    
     if  board_b == board_a:
         fill(0,300,0)
         rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
         fill(0)
         text("You  win!",canvas_width/2 , cell_size*9/2 )
         dragging = False
+        
+def reset_game():
+    global board_b, chance
+    board_b = [row[:] for row in board_a] 
+    chance = 3                            
+    random_blank()
