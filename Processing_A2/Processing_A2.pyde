@@ -36,8 +36,9 @@ def draw():
         fill(0,0,0,0)
         square(drag_x - cell_size/2 , drag_y - cell_size/2 , cell_size)
         fill(0)
-        text(str(selected_number),drag_x , drag_y )
-    
+        text(str(selected_number) , drag_x , drag_y )
+    text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
+
 def draw_board():
     for i in range(10):
         if i % 3 == 0:
