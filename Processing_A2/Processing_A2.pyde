@@ -18,6 +18,7 @@ canvas_width = cell_size * 9
 canvas_height = canvas_width + ( cell_size *2)
 dragging = False
 drag_x,drag_y = 0,0
+chance = 3
 
 def setup():
     size(canvas_width,canvas_height)
@@ -113,11 +114,15 @@ def mouseDragged():
         drag_x,drag_y = mouseX, mouseY
 
 def mouseReleased():
-    global dragging, selected_number
+    global dragging, selected_number, chance
     if dragging and selected_number is not None:
         col = mouseX // cell_size
         row = mouseY // cell_size
         if row < 9 and col < 9:
+            if board_a[row][col] != selected_number:
+                chance -= 1
+                print(chance)
             board_b[row][col] = selected_number
+            
     dragging = False
     selected_number = None
