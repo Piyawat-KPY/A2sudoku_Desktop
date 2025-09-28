@@ -10,7 +10,7 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [6,5,4, 3,2,1, 8,7,9],
      [9,8,7, 6,5,4, 2,1,3]]
 
-board_b  = board_a
+board_b = [row[:] for row in board_a]
 selected_cell = (-1, -1)
 selected_number = None
 cell_size = 50
@@ -68,8 +68,8 @@ def draw_numbers():
 
 def random_number_forbank():
     blank = []
-    blank = [0]*7
-    for i  in range(7):
+    blank = [0]*6
+    for i  in range(6):
         blank[i] = int(random(1,10))
     return  blank
     
@@ -107,3 +107,13 @@ def mouseDragged():
     global drag_x,drag_y
     if dragging:
         drag_x,drag_y = mouseX, mouseY
+
+def mouseReleased():
+    global dragging, selected_number
+    if dragging and selected_number is not None:
+        col = mouseX // cell_size
+        row = mouseY // cell_size
+        if row < 9 and col < 9:
+            board_b[row][col] = selected_number
+    dragging = False
+    selected_number = None
