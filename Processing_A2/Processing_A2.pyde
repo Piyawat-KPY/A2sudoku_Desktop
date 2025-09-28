@@ -27,6 +27,7 @@ def setup():
     random_blank()
     
 def draw():
+    global dragging
     background(250)
     draw_board()
     draw_numbers()
@@ -43,6 +44,7 @@ def draw():
         rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
         fill(0)
         text("You  lose!",canvas_width/2 , cell_size*9/2 )
+        dragging = False
 
 def draw_board():
     for i in range(10):
