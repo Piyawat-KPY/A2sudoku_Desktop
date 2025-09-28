@@ -68,14 +68,13 @@ def draw_numbers():
                 x = col * (canvas_width/9) + (canvas_width/9) / 2
                 y = rol * ((canvas_height - (cell_size*2)) /9) + ((canvas_height - (cell_size*2)) /9) / 2
                 if num != board_a[rol][col]:
-                    num = board_a[rol][col]
                     fill (300,0,0)
                 text(str(num), x, y)
               
 def random_number_forbank():
     blank = []
-    blank = [0]*1
-    for i  in range(1):
+    blank = [0]*6
+    for i  in range(6):
         blank[i] = int(random(1,10))
     return  blank
     
@@ -106,7 +105,7 @@ def highlight_selected_cell():
             for  j in range (9):
                 if board_b[i][j] == board_b[row][col] and board_b[row][col] !=  0:
                     fill(300,300,0,20)
-                    rect(j * ((canvas_height - (cell_size*2)) /9), i * (canvas_width/9), ((canvas_height - (cell_size*2)) /9), (canvas_width/9))
+                    square(j * ((canvas_height - (cell_size*2)) /9), i * (canvas_width/9), ((canvas_height - (cell_size*2)) /9))
 
 def mouseDragged():
     global drag_x,drag_y
@@ -122,8 +121,7 @@ def mouseReleased():
             if board_a[row][col] != selected_number:
                 chance -= 1
                 print(chance)
-            board_b[row][col] = selected_number
-            
+            board_b[row][col] = selected_number        
     dragging = False
     selected_number = None
     
