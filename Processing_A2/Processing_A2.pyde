@@ -37,7 +37,7 @@ def draw():
         square(drag_x - cell_size/2 , drag_y - cell_size/2 , cell_size)
         fill(0)
         text(str(selected_number) , drag_x , drag_y )
-    lose_win()
+    lose_win_chance_reset_save()
 
 def draw_board():
     for i in range(10):
@@ -121,19 +121,26 @@ def mouseReleased():
         if row < 9 and col < 9:
             if board_a[row][col] != selected_number:
                 chance -= 1
-                print(chance)
             board_b[row][col] = selected_number        
     dragging = False
     selected_number = None
     
-def lose_win():
+def lose_win_chance_reset_save():
     global dragging
     global chance
+    
     text("chance : %d" % chance  , cell_size*2 - cell_size/2  , canvas_height  - (cell_size  + cell_size/2) )
     fill(255)
+    
     rect(canvas_width - cell_size*2 , cell_size*9  , cell_size*2 ,cell_size)
     fill(300,0,0)
     text("reset" ,canvas_width - cell_size, canvas_height  - (cell_size  + cell_size/2) )
+    
+    fill(255)
+    rect(canvas_width - cell_size*4 , cell_size*9  , cell_size*2 ,cell_size)
+    fill(0,300,0)
+    text("save" ,canvas_width - cell_size*3, canvas_height  - (cell_size  + cell_size/2) )
+    
     if  chance <= 0  :
         fill(300,0,0)
         rect(canvas_width/2 - cell_size*2 , cell_size*9/2 - cell_size/2 , cell_size*4,cell_size)
