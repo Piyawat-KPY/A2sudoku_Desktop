@@ -26,6 +26,7 @@ def setup():
     textAlign(CENTER, CENTER)
     textSize(24)
     reset_game()
+    load_game()
     
 def draw():
     background(250)
@@ -172,3 +173,11 @@ def save_game():
             file.write(str(num) + " ")
         file.print("\n") 
     file.close()
+
+def load_game():
+    global board_b
+    board_b = []
+    lines = loadStrings(file_name)
+    for line in lines:
+        row = [int(num) for num in line.strip().split()]
+        board_b.append(row)
