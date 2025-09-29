@@ -96,6 +96,9 @@ def mousePressed():
         drag_x,drag_y = mouseX,mouseY
     if row == 9  and col >= 7:
         reset_game()
+    if col >= 5  and col < 7:
+        save_game("sudoku_save_game.txt")
+        print("saved")
 
 def highlight_selected_cell():
     if selected_cell != (-1, -1):
@@ -160,3 +163,11 @@ def reset_game():
     board_b = [row[:] for row in board_a] 
     chance = 3                            
     random_blank()
+
+def save_game(filename):
+    file = createWriter(filename)
+    for row in board_b:
+        for num in row:
+            file.write(str(num) + " ")
+        file.print("\n") 
+    file.close()
