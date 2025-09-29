@@ -19,6 +19,7 @@ canvas_height = canvas_width + ( cell_size *2)
 dragging = False
 drag_x,drag_y = 0,0
 chance = 3
+file_name = "sudoku_save_game.txt"
 
 def setup():
     size(canvas_width,canvas_height)
@@ -97,7 +98,7 @@ def mousePressed():
     if row == 9  and col >= 7:
         reset_game()
     if col >= 5  and col < 7:
-        save_game("sudoku_save_game.txt")
+        save_game()
         print("saved")
 
 def highlight_selected_cell():
@@ -164,8 +165,8 @@ def reset_game():
     chance = 3                            
     random_blank()
 
-def save_game(filename):
-    file = createWriter(filename)
+def save_game():
+    file = createWriter(file_name)
     for row in board_b:
         for num in row:
             file.write(str(num) + " ")
