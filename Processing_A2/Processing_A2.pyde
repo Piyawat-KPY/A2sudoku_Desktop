@@ -179,5 +179,5 @@ def load_game():
     board_b = []
     lines = loadStrings(file_name)
     for line in lines:
-        row = [int(num) for num in line.strip().split()]
+        row = [int(num) for num in line.split()]
         board_b.append(row)
