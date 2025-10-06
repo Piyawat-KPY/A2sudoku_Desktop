@@ -56,7 +56,7 @@ def draw_add_number_cell():
         fill(250)
         square(i*cell_size,canvas_height - (cell_size) ,cell_size)
         fill(0)
-        x = i * (canvas_width/9) + (canvas_width/9) / 2
+        x = i * cell_size + cell_size / 2
         y = (canvas_height - (cell_size/2))
         text(str(i+1), x, y)
 
@@ -66,8 +66,8 @@ def draw_numbers():
             num = board_b[rol][col]
             if num != 0:
                 fill (0)
-                x = col * (canvas_width/9) + (canvas_width/9) / 2
-                y = rol * ((canvas_height - (cell_size*2)) /9) + ((canvas_height - (cell_size*2)) /9) / 2
+                x = col * cell_size + cell_size / 2
+                y = rol * cell_size + cell_size / 2
                 if num != board_a[rol][col]:
                     fill (300,0,0)
                 text(str(num), x, y)
@@ -88,8 +88,8 @@ def random_blank():
                 
 def mousePressed(): 
     global selected_cell,selected_number,drag_x,drag_y,dragging
-    col = mouseX // (cell_size)
-    row = mouseY // (cell_size)
+    col = mouseX // cell_size
+    row = mouseY // cell_size
     if 0 <= row < 9 and 0 <= col < 9:
         selected_cell = (row, col)
     if row  == 10:
@@ -106,12 +106,12 @@ def highlight_selected_cell():
     if selected_cell != (-1, -1):
         row, col = selected_cell
         fill(300,300,0,100)
-        rect(col * ((canvas_height - (cell_size*2)) /9), row * (canvas_width/9), ((canvas_height - (cell_size*2)) /9), (canvas_width/9))
+        square(col * cell_size , row * cell_size, cell_size)
         for i in range (9):
             for  j in range (9):
                 if board_b[i][j] == board_b[row][col] and board_b[row][col] !=  0:
                     fill(300,300,0,20)
-                    square(j * ((canvas_height - (cell_size*2)) /9), i * (canvas_width/9), ((canvas_height - (cell_size*2)) /9))
+                    square(j * cell_size, i * cell_size, cell_size)
 
 def mouseDragged():
     global drag_x,drag_y
@@ -181,9 +181,6 @@ def load_game():
         lines = file.readlines()
     for i in lines:
         row = [int(num) for num in i.strip().split()]
-    lines = loadStrings(file_name)
-    for line in lines:
-        row = [int(num) for num in line.split()]
         board_b.append(row)
 
 
