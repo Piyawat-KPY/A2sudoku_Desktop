@@ -175,12 +175,12 @@ def save_game():
     file.close()
 
 def load_game():
-    global board_b,chance 
+    global board_b
     board_b = []
     with open(file_name, 'r') as file:
         lines = file.readlines()
     for i in lines:
-        row = [int(num) for num in i.strip().split()]
+        row = [int(num) for num in i.split()]
         board_b.append(row)
 
 
