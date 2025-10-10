@@ -158,6 +158,12 @@ def lose_win_chance_reset_save():
     fill(0, 255, 0)
     text("save", canvas_width - cell_size*3, canvas_height - (cell_size + cell_size/2))
     
+    # Save button
+    fill(255)
+    rect(canvas_width - cell_size*6 , cell_size*9 , cell_size*2 ,cell_size)
+    fill(255,0,255)
+    text("load", canvas_width - cell_size*5, canvas_height - (cell_size + cell_size/2))
+    
     if chance <= 0:
         fill(255, 0, 0)
         rect(canvas_width/2 - cell_size*2 , cell_size*4.5 - cell_size/2 , cell_size*4, cell_size)
