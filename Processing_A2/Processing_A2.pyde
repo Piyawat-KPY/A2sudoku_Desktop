@@ -9,15 +9,17 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [9,8,7, 6,5,4, 2,1,3]]
 
 board_b = [row[:] for row in board_a]
-selected_cell = (-1, -1)
-Fixed_number = [[False for _ in range(9)] for _ in range(9)]
-selected_number = None
 cell_size = 50
 canvas_width = cell_size * 9
 canvas_height = canvas_width + ( cell_size *2)
+
+selected_cell = (-1, -1)
+Fixed_number = [[False for _ in range(9)] for _ in range(9)]
+selected_number = None
 dragging = False
 drag_x, drag_y = 0, 0
 chance = 3
+IsComplete = False
 file_name = "sudoku_save_game.txt"
 
 
@@ -41,6 +43,7 @@ def draw():
         fill(0)
         text(str(selected_number) , drag_x , drag_y )
     lose_win_chance_reset_save()
+    checkComplete()
 
 
 def draw_board():
@@ -171,7 +174,7 @@ def lose_win_chance_reset_save():
         text("You lose!", canvas_width/2 , cell_size*4.5)
         dragging = False
         
-    elif board_b == board_a:
+    elif IsComplete == True:
         fill(0, 255, 0)
         rect(canvas_width/2 - cell_size*2 , cell_size*4.5 - cell_size/2 , cell_size*4, cell_size)
         fill(0)
@@ -194,8 +197,18 @@ def isDuplicate(that_row, that_col, answer):
         for j in range(start_col, start_col + 3):
             if (i != that_row or j != that_col) and board_b[i][j] == answer:
                 return True
-            
     return False
+
+    
+def checkComplete():
+    global IsComplete
+    for row in range (9):
+        for col in range (9):
+            if board_b[row][col] == 0 or isDuplicate(row , col , board_b[row][col]):
+                IsComplete = False
+                return
+    IsComplete = True
+
         
 def reset_game():
     global board_b, chance , Fixed_number
