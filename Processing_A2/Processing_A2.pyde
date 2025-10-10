@@ -8,7 +8,7 @@ a = [[8,7,6, 5,4,3, 1,9,2],
      [6,5,4, 3,2,1, 8,7,9],
      [9,8,7, 6,5,4, 2,1,3]]
 
-board_b = [row[:] for row in a]
+board = [row[:] for row in a]
 cell_size = 50
 canvas_width = cell_size * 9
 canvas_height = canvas_width + ( cell_size *2)
@@ -66,14 +66,14 @@ def draw_add_number_cell():
 def draw_numbers():
     for row in range(9):
         for col in range(9):
-            if board_b[row][col] != 0:
+            if board[row][col] != 0:
                 if Fixed_number[row][col]:
                     fill(0)
-                elif isDuplicate(row , col , board_b[row][col]):
+                elif isDuplicate(row , col , board[row][col]):
                     fill(200, 0, 0)    
                 else:
                     fill(0, 200, 100)
-                text(str(board_b[row][col]), col*cell_size + cell_size/2 , row*cell_size + cell_size/2)
+                text(str(board[row][col]), col*cell_size + cell_size/2 , row*cell_size + cell_size/2)
 
 
 def random_number_forbank():
@@ -84,13 +84,12 @@ def random_number_forbank():
     return  blank
 
 
-
 def random_blank():
     for row in range(9):
         blanks = random_number_forbank()
         for col in range(9):
-            if board_b[row][col] in blanks:
-                board_b[row][col] = 0
+            if board[row][col] in blanks:
+                board[row][col] = 0
                 Fixed_number[row][col] = False
 
 
@@ -121,7 +120,7 @@ def highlight_selected_cell():
         square(col * cell_size , row * cell_size, cell_size)
         for i in range(9):
             for j in range(9):
-                if board_b[i][j] == board_b[row][col] and board_b[row][col] != 0:
+                if board[i][j] == board[row][col] and board[row][col] != 0:
                     fill(255, 255, 0, 20)
                     square(j * cell_size, i * cell_size, cell_size)
 
@@ -141,7 +140,7 @@ def mouseReleased():
             if not Fixed_number[row][col]: 
                 if a[row][col] != selected_number:
                     chance -= 1
-                board_b[row][col] = selected_number        
+                board[row][col] = selected_number        
     dragging = False
     selected_number = None
     
@@ -186,10 +185,10 @@ def lose_win_chance_reset_save():
             
 def isDuplicate(that_row, that_col, answer):
     for j in range(9):
-        if j != that_col and board_b[that_row][j] == answer:
+        if j != that_col and board[that_row][j] == answer:
             return True
     for i in range(9):
-        if i != that_row and board_b[i][that_col] == answer:
+        if i != that_row and board[i][that_col] == answer:
             return True
         
     start_row = (that_row // 3) * 3
@@ -197,7 +196,7 @@ def isDuplicate(that_row, that_col, answer):
     
     for i in range(start_row, start_row + 3):
         for j in range(start_col, start_col + 3):
-            if (i != that_row or j != that_col) and board_b[i][j] == answer:
+            if (i != that_row or j != that_col) and board[i][j] == answer:
                 return True
     return False
 
@@ -206,38 +205,38 @@ def checkComplete():
     global IsComplete
     for row in range (9):
         for col in range (9):
-            if board_b[row][col] == 0 or isDuplicate(row , col , board_b[row][col]):
+            if board[row][col] == 0 or isDuplicate(row , col , board[row][col]):
                 IsComplete = False
                 return
     IsComplete = True
 
         
 def reset_game():
-    global board_b, chance , Fixed_number
-    board_b = [row[:] for row in a] 
+    global board, chance , Fixed_number
+    board = [row[:] for row in a] 
     chance = 3
     Fixed_number = [[True for _ in range(9)] for _ in range(9)]                        
     random_blank()
 
 def save_game():
     file = createWriter(file_name)
-    for row in board_b:
+    for row in board:
         for num in row:
             file.write(str(num) + " ")
         file.print("\n") 
     file.close()
 
 def load_game():
-    global board_b, Fixed_number
-    board_b = []
+    global board, Fixed_number
+    board = []
     with open(file_name, 'r') as file:
         lines = file.readlines()
     for line in lines:
         row = [int(num) for num in line.split()]
-        board_b.append(row)
+        board.append(row)
 
     Fixed_number = []
-    for row in board_b:
+    for row in board:
         fixed_row = []
         for num in row:
             if num == 0:
