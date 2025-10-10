@@ -28,7 +28,6 @@ def setup():
     textAlign(CENTER, CENTER)
     textSize(24)
     reset_game()
-    load_game()
   
       
 def draw():
@@ -111,7 +110,7 @@ def mousePressed():
         save_game()
         print("saved")
     elif row == 9 and 4 <= col < 6:
-        save_game()
+        load_game()
         print("load")
 
 
