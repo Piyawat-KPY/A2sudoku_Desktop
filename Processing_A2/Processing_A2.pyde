@@ -219,28 +219,28 @@ def reset_game():
     random_blank()
 
 def save_game():
-    file = createWriter(file_name)
-    for row in board:
-        for num in row:
-            file.write(str(num) + " ")
-        file.print("\n") 
-    file.close()
+    with open(file_name, 'w') as file:
+        for row in board:
+            file.write(" ".join(map(str, row)) + "\n")
+        file.write("---\n")
+
+        for row in Fixed_number:
+            int_row = [1 if cell_is_fixed else 0 for cell_is_fixed in row]
+            file.write(" ".join(map(str, int_row)) + "\n")
 
 def load_game():
     global board, Fixed_number
-    board = []
     with open(file_name, 'r') as file:
         lines = file.readlines()
-    for line in lines:
-        row = [int(num) for num in line.split()]
-        board.append(row)
+        separator_index = lines.index("---\n")
+        new_board = []
+        for i in range(separator_index):
+            row = [int(num) for num in lines[i].strip().split()]
+            new_board.append(row)
 
-    Fixed_number = []
-    for row in board:
-        fixed_row = []
-        for num in row:
-            if num == 0:
-                fixed_row.append(False)  
-            else:
-                fixed_row.append(True)  
-        Fixed_number.append(fixed_row)
+        new_fixed_number = []
+        for i in range(separator_index + 1, len(lines)):
+            row = [num == '1' for num in lines[i].strip().split()]
+            new_fixed_number.append(row)
+        board = new_board
+        Fixed_number = new_fixed_number
