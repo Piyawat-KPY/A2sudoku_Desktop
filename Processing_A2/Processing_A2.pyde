@@ -110,6 +110,9 @@ def mousePressed():
     elif row == 9 and 5 <= col < 7:
         save_game()
         print("saved")
+    elif row == 9 and 4 <= col < 6:
+        save_game()
+        print("load")
 
 
 def highlight_selected_cell():
