@@ -1,4 +1,4 @@
-board_a = [[8,7,6, 5,4,3, 1,9,2],
+a = [[8,7,6, 5,4,3, 1,9,2],
      [5,4,3, 2,1,9, 7,6,8],
      [2,1,9, 8,7,6, 4,3,5],
      [1,9,8, 7,6,5, 3,2,4],
@@ -8,7 +8,7 @@ board_a = [[8,7,6, 5,4,3, 1,9,2],
      [6,5,4, 3,2,1, 8,7,9],
      [9,8,7, 6,5,4, 2,1,3]]
 
-board_b = [row[:] for row in board_a]
+board_b = [row[:] for row in a]
 cell_size = 50
 canvas_width = cell_size * 9
 canvas_height = canvas_width + ( cell_size *2)
@@ -139,7 +139,7 @@ def mouseReleased():
         row = mouseY // cell_size
         if 0 <= row < 9 and 0 <= col < 9:
             if not Fixed_number[row][col]: 
-                if board_a[row][col] != selected_number:
+                if a[row][col] != selected_number:
                     chance -= 1
                 board_b[row][col] = selected_number        
     dragging = False
@@ -214,7 +214,7 @@ def checkComplete():
         
 def reset_game():
     global board_b, chance , Fixed_number
-    board_b = [row[:] for row in board_a] 
+    board_b = [row[:] for row in a] 
     chance = 3
     Fixed_number = [[True for _ in range(9)] for _ in range(9)]                        
     random_blank()
